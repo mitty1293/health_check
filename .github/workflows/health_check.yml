@@ -16,7 +16,7 @@ jobs:
             - name: Notify to Discord on Success
               id: notify_to_discord_success
               uses: sarisia/actions-status-discord@v1
-              if: ${{ steps.get_http_status.outputs.code }} == 200
+              if: ${{ steps.get_http_status.outputs.code }} == "200"
               with:
                 webhook: ${{ secrets.DISCORD_WEBHOOK }}
                 status: Success
@@ -25,7 +25,7 @@ jobs:
             - name: Notify to Discord on Failure
               id: notify_to_discord_failure
               uses: sarisia/actions-status-discord@v1
-              if: ${{ steps.get_http_status.outputs.code }} != 200
+              if: ${{ steps.get_http_status.outputs.code }} != "200"
               with:
                 webhook: ${{ secrets.DISCORD_WEBHOOK }}
                 status: Failure
