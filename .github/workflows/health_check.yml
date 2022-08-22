@@ -11,7 +11,7 @@ jobs:
               id: get_http_status
               run: |
                 code=$(curl http://fmitty.net/ -o /dev/null -w "%{http_code}\n" -s)
-                echo "::set-output name=code::$(code)"
+                echo "::set-output name=code::"$code
             
             - name: Notify to Discord
               id: notify_to_discord
