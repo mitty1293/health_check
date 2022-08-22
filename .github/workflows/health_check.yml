@@ -16,8 +16,8 @@ jobs:
             - name: Notify to Discord
               id: notify_to_discord
               uses: sarisia/actions-status-discord@v1
-              if: always()
+              if: ${{ steps.get_http_status.outputs.code }} == 200
               with:
                 webhook: ${{ secrets.DISCORD_WEBHOOK }}
                 status: Failure
-                title: "Server is DOWN (${{ steps.get_http_status.outputs.code }})"
+                title: "http://fmitty.net/ is DOWN (${{ steps.get_http_status.outputs.code }})"
