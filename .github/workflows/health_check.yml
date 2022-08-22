@@ -13,10 +13,19 @@ jobs:
                 code=$(curl http://fmitty.net/ -o /dev/null -w "%{http_code}\n" -s)
                 echo "::set-output name=code::"$code
             
-            - name: Notify to Discord
-              id: notify_to_discord
+            - name: Notify to Discord on Success
+              id: notify_to_discord_success
               uses: sarisia/actions-status-discord@v1
               if: ${{ steps.get_http_status.outputs.code }} == 200
+              with:
+                webhook: ${{ secrets.DISCORD_WEBHOOK }}
+                status: Success
+                title: "http://fmitty.net/ is UP (${{ steps.get_http_status.outputs.code }})"
+
+            - name: Notify to Discord on Failure
+              id: notify_to_discord_failure
+              uses: sarisia/actions-status-discord@v1
+              if: ${{ steps.get_http_status.outputs.code }} != 200
               with:
                 webhook: ${{ secrets.DISCORD_WEBHOOK }}
                 status: Failure
