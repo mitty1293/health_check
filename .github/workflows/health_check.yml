@@ -19,4 +19,5 @@ jobs:
               if: always()
               with:
                 webhook: ${{ secrets.DISCORD_WEBHOOK }}
-                
+                status: Failure
+                title: "Server is DOWN (${{ steps.get_http_status.outputs.code }})"
